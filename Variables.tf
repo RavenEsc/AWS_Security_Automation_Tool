@@ -1,14 +1,14 @@
 variable "org" {
-  type = "string"
-  Default = "raven-for-aws"
+  type = string
+  default = "raven-for-aws"
 }
 
 variable "ws" {
-  type = "string"
-  Default = "AWS_SAT"
+  type = string
+  default = "AWS_SAT"
 }
 
 variable "reg" {
-  type = "string"
-  Default = "us-east-1"
+  type = string
+  default = "us-east-1"
 }
