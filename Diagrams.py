@@ -8,7 +8,9 @@ from diagrams.aws.integration import Eventbridge
 with Diagram("Security Check Solution", show=False):
     with Cluster("AWS Account: Terraform-Test"):
         # Note: Do not make a variable name below matching the above imports ex. S3 and S3 instead of s3_bucket
-        function = Lambda("Lambda Function")
+        function = Lambda("SNS Topic Function")
+        functionD = Lambda("Discord Webhook Function")
+        functionS3 = Lambda("S3 Storage Function")
         SNS = SimpleNotificationServiceSnsTopic("SNS")
         SQSa = SimpleQueueServiceSqsQueue("SQS Queue")
         SQSb = SimpleQueueServiceSqsQueue("SQS Queue: Discord")
@@ -17,4 +19,5 @@ with Diagram("Security Check Solution", show=False):
 
     eveb >> function >> SNS
     SNS >> [SQSa, SQSb]
-    SQSa >> s3_bucket
+    SQSa >> functionS3 >> s3_bucket
+    SQSb >> functionD
