@@ -342,7 +342,23 @@ module "lambda_Discord" {
 
   source_path = "/index3.py"
 
+  layers = [
+    module.lambda_layer_discord.lambda_layer_arn,
+  ]
+
   tags = {
     Name = "my-lambda3"
   }
+}
+
+module "lambda_layer_discord" {
+  source = "terraform-aws-modules/lambda/aws"
+
+  create_layer = true
+
+  layer_name          = "lambda-layer-discord"
+  description         = "lambda layer "
+  compatible_runtimes = [var.py_runtime]
+
+  source_path = "/Discord-Webhook-Dependencies.zip"
 }
