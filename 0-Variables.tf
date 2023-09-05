@@ -20,12 +20,13 @@ locals {
 }
 
 variable "sns_topic_arn" {
+  type = string
   default = aws_sns_topic.orders.arn
 }
 
 variable "s3_bucket_name" {
   type = string
-  default = "SAT-Event-Storage"
+  default = "sat-event-storage"
 }
 
 variable "py_runtime" {

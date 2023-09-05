@@ -3,6 +3,7 @@
 ######################################################################
 module "lambda" {
   source = "terraform-aws-modules/lambda/aws"
+  version = "6.0.0"
 
   function_name     = "lambda-sat-ec2"
   description       = "Checks for public facing ec2 instances"
@@ -12,9 +13,9 @@ module "lambda" {
   source_path       = data.archive_file.lambda_archive_file.output_path
   role              = aws_iam_role.lambda_role.arn
   environment_variables = {
-  SNS_TOPIC_ARN = var.sns_topic_arn
-  anum = local.account_id
-}
+    SNS_TOPIC_ARN = var.sns_topic_arn
+    anum = local.account_id
+  }
 
   tags = {
     Name = "my-lambda1"
@@ -281,7 +282,13 @@ module "lambda_s3" {
   role          = aws_iam_role.lambda_role_s3.arn
 
   source_path = "/index2.py"
-
+  event_source_mapping = {
+    event_source_arn = aws_sqs_queue.orders_to_process.arn
+    starting_position = "LATEST"
+  }
+  environment_variables = {
+    buck_lm = var.s3_bucket_name
+  }
   tags = {
     Name = "my-lambda2"
   }
