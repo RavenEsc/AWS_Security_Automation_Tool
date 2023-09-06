@@ -19,7 +19,9 @@ def lambda_handler(event, context):
 
     except Exception as e:
         traceback_msg = traceback.format_exc()
-        return {'statusCode': str(e.response['ResponseMetadata']['HTTPStatusCode']), 'body': str(e), 'traceback': traceback_msg}
+        return {'statusCode': 500,
+                'body': {"message": f"Error reading/listing EC2 instances: {str(e)}", 'traceback': traceback_msg}
+                }
         # Code ends here if there is an error
 
     # Check if the public_instances list is empty
@@ -38,6 +40,9 @@ def lambda_handler(event, context):
 
             # Return a status code 200 with a body 'Results published to SNS'
             return {'statusCode': 200, 'body': 'Results published to SNS'}
-        except Exception as s:
+        except Exception as ezx:
             traceback_msg = traceback.format_exc()
-            return {'statusCode': str(s.response['ResponseMetadata']['HTTPStatusCode']), 'body': str(s), 'traceback': traceback_msg}
+            return {
+                'statusCode': 500,
+                'body': {"message": f"Error publishing to SNS Topic: {str(e)}", 'traceback': traceback_msg}
+                }

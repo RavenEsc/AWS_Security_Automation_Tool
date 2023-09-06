@@ -1,34 +1,21 @@
-import json
 import os
 import datetime
 import boto3
-
-def receive_new_messages():
-    # Create SQS client
-    sqs = boto3.client('sqs')
-
-    # Get the URL of the SQS Queue
-    queue_url = os.getenv('queue-url')
-
-    # Receive messages from the SQS Queue
-    response = sqs.receive_message(
-        QueueUrl=queue_url,
-        MaxNumberOfMessages=10,  # adjust the number of messages to receive as desired
-        WaitTimeSeconds=20  # adjust the wait time as desired
-    )
-
-    # Get the messages from the response
-    messages = response.get('Messages', [])
-
-    return messages
-
+import traceback
 
 def lambda_handler(event, context):
-    # Get the new messages from the SQS Queue
-    records = receive_new_messages()
-    
+    try:
+        # Get the new messages from the SQS Queue
+        records = event['Records']
+    except Exception as e:
+        traceback_message = traceback.format_exc()
+        return {
+            "statusCode": 500,
+            "body": {"message": f"Error processing SQS messages: {e}","traceback": traceback_message}
+        }
+
     for record in records:
-        message = record['Body']
+        message = record['body']
         
         # Create S3 client
         s3 = boto3.client('s3')
@@ -36,7 +23,7 @@ def lambda_handler(event, context):
         # Create time variables
         current_time = datetime.datetime.now()
         current_date = datetime.date.today()
-        
+    try:
         # Create a file in S3 bucket with the message as content
         bucket_name = os.getenv('buck_lm')
         file_name = f"{current_date}_SAT-ec2pubcheck.txt"
@@ -45,10 +32,14 @@ def lambda_handler(event, context):
             Bucket=bucket_name,
             Key=file_name
         )
-        
+    except Exception as e:
+        traceback_message = traceback.format_exc()
+        return {
+            "statusCode": 500,
+            "body": {"message": f"Error creating file in S3 bucket: {e}", "traceback": traceback_message}
+        }
+    
     return {
         "statusCode": 200,
-        "body": {
-            "message": "Messages transferred to S3 successfully"
-        }
+        "body": {"message": "Messages transferred to S3 successfully"}
     }

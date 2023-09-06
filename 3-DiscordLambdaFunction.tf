@@ -8,6 +8,11 @@ module "lambda_Discord" {
   source_code_hash  = data.archive_file.lambda_archive_file3.output_base64sha256
   source_path       = data.archive_file.lambda_archive_file3.output_path
 
+  event_source_mapping = {
+    event_source_arn = aws_sqs_queue.orders_to_notify.arn
+    starting_position = "LATEST"
+  }
+
   layers = [
     module.lambda_layer_discord.lambda_layer_arn,
   ]
