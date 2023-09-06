@@ -6,8 +6,8 @@ module "lambda_s3" {
   handler       = "index2.lambda_handler"
   runtime       = var.py_runtime
   role          = aws_iam_role.lambda_role_s3.arn
-
-  source_path = "/index2.py"
+  source_code_hash  = data.archive_file.lambda_archive_file2.output_base64sha256
+  source_path       = data.archive_file.lambda_archive_file2.output_path
   event_source_mapping = {
     event_source_arn = aws_sqs_queue.orders_to_process.arn
     starting_position = "LATEST"
@@ -18,4 +18,10 @@ module "lambda_s3" {
   tags = {
     Name = "my-lambda2"
   }
+}
+
+data "archive_file" "lambda_archive_file2" {
+  type        = "zip"
+  source_file = "index2.py"
+  output_path = "lambda_function_payload2.zip"
 }

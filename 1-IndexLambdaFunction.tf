@@ -11,7 +11,6 @@ module "lambda" {
   role              = aws_iam_role.lambda_role.arn
   environment_variables = {
     SNS_TOPIC_ARN = var.sns_topic_arn
-    anum = local.account_id
   }
 
   tags = {
