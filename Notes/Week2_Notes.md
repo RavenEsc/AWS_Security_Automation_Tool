@@ -11,6 +11,7 @@ Update:
 <br><br>
 <center><img src="Draft_2.png" alt="2nd Draft" width="70%"/></center>
 
+- Debugged and wrote any errors and attempts to fix in Debug-Error-Draft.md
 
 <!-- ## Meeting 3:
 

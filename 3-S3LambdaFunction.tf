@@ -21,6 +21,14 @@ module "lambda_s3" {
         "arn:aws:s3:::${var.s3_bucket_name}",
         "arn:aws:s3:::${var.s3_bucket_name}/*"
       ]
+    },
+    {
+      "Sid": "AllowLambdaS3SQSAccess",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:ReceiveMessage"
+      ],
+      "Resource": ${aws_sqs_queue.orders_to_notify.arn}
     }
   ]
 }
