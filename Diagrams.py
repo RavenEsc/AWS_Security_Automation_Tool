@@ -4,17 +4,26 @@ from diagrams.aws.storage import S3
 from diagrams.aws.integration import SimpleNotificationServiceSnsTopic
 from diagrams.aws.integration import SimpleQueueServiceSqsQueue
 from diagrams.aws.integration import Eventbridge
+from diagrams.onprem.compute import Server
 
-with Diagram("Security Check Solution", show=False):
-    with Cluster("AWS Account: Terraform-Test"):
-        # Note: Do not make a variable name below matching the above imports ex. S3 and S3 instead of s3_bucket
-        function = Lambda("Lambda Function")
+with Diagram("Security Automation Tool", show=False):
+
+    with Cluster("AWS-Account: Terraform-Test"):
+
         SNS = SimpleNotificationServiceSnsTopic("SNS")
-        SQSa = SimpleQueueServiceSqsQueue("SQS Queue")
-        SQSb = SimpleQueueServiceSqsQueue("SQS Queue: Discord")
-        s3_bucket = S3("S3 Bucket")
-        eveb = Eventbridge("Scheduler")
+        SQSa = SimpleQueueServiceSqsQueue("SQS Queue: S3")
+        SQSb = SimpleQueueServiceSqsQueue("SQS Queue: Dcord")
+        SNS >> [SQSa, SQSb]
 
-    eveb >> function >> SNS
-    SNS >> [SQSa, SQSb]
-    SQSa >> s3_bucket
+        with Cluster("Trigger-Lambda"):
+            eveb = Eventbridge("EventBLambTrigger")
+            function = Lambda("IndexLambFunction")
+            eveb >> function >> SNS
+
+        with Cluster("S3-Discord-Functions"):
+            s3_bucket = S3("S3LambBucket")
+            functionD = Lambda("DcordLambFunction")
+            functionS3 = Lambda("S3LambFunction")
+            Discord = Server("DcordNotifiBot")
+            SQSa >> functionS3 >> s3_bucket
+            SQSb >> functionD >> Discord
