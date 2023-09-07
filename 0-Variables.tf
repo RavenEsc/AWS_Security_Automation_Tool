@@ -19,11 +19,6 @@ locals {
     account_id = data.aws_caller_identity.current.account_id
 }
 
-variable "sns_topic_arn" {
-  type = string
-  default = aws_sns_topic.orders.arn
-}
-
 variable "s3_bucket_name" {
   type = string
   default = "sat-event-storage"

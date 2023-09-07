@@ -10,7 +10,7 @@ module "lambda" {
   source_path       = data.archive_file.lambda_archive_file.output_path
   role              = aws_iam_role.lambda_role.arn
   environment_variables = {
-    SNS_TOPIC_ARN = var.sns_topic_arn
+    SNS_TOPIC_ARN = aws_sns_topic.orders.arn
   }
 
   tags = {
