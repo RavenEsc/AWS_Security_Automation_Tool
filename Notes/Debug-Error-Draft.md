@@ -12,10 +12,9 @@ Errors->Fixes From Github:Branch:Rough-Draft:
     # with module.lambda_s3.aws_lambda_event_source_mapping.
         ## "event_source_arn" must be specified
             ### Changed ".arn" to ".event_source_arn"
-                Corrected 2:
-                    # on 3-S3LambdaFunction.tf line 29, in module "lambda_s3" (Also on Discord_lambda)
-                        ## This object has no argument, nested block, or exported attribute named "event_source_arn".
-                            ### Changed back to ".arn"
+                ### Changed back to ".arn"
+                    ### 
+
 
 3.
     # with module.lambda_s3.aws_lambda_event_source_mapping.

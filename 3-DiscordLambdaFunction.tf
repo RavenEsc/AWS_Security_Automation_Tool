@@ -8,7 +8,7 @@ module "lambda_Discord" {
   source_path       = "index3.py"
 
   event_source_mapping = {
-    event_source_arn = aws_sqs_quue.ordrs_to_notify.arn
+    event_source_arn = aws_sqs_queue.orders_to_notify.arn
   }
 
   layers = [
