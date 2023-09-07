@@ -6,9 +6,20 @@ module "lambda" {
   description       = "Checks for public facing ec2 instances"
   handler           = "index.lambda_handler"
   runtime           = var.py_runtime
-  source_code_hash  = data.archive_file.lambda_archive_file.output_base64sha256
-  source_path       = data.archive_file.lambda_archive_file.output_path
-  role              = aws_iam_role.lambda_role.arn
+  source_path       = "index.py"
+
+  policy_json = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "sns:Publish",
+      "Resource": "arn:aws:sns:${var.reg}:${local.account_id}:${var.sns_topic_arn}"
+    }
+  ]
+}
+EOF
   environment_variables = {
     SNS_TOPIC_ARN = aws_sns_topic.orders.arn
   }
@@ -16,10 +27,4 @@ module "lambda" {
   tags = {
     Name = "my-lambda1"
   }
-}
-
-data "archive_file" "lambda_archive_file" {
-  type        = "zip"
-  source_file = "index.py"
-  output_path = "lambda_function_payload.zip"
 }

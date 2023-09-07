@@ -5,8 +5,7 @@ module "lambda_Discord" {
   description   = "Sends messages as notifications from the SQS Queue to Discord Webhook Bot"
   handler       = "index3.lambda_handler"
   runtime       = var.py_runtime
-  source_code_hash  = data.archive_file.lambda_archive_file3.output_base64sha256
-  source_path       = data.archive_file.lambda_archive_file3.output_path
+  source_path       = "index3.py"
 
   event_source_mapping = {
     event_source_arn = aws_sqs_queue.orders_to_notify.arn
@@ -20,12 +19,6 @@ module "lambda_Discord" {
   tags = {
     Name = "my-lambda3"
   }
-}
-
-data "archive_file" "lambda_archive_file3" {
-  type        = "zip"
-  source_file = "index3.py"
-  output_path = "lambda_function_payload3.zip"
 }
 
 module "lambda_layer_discord" {
