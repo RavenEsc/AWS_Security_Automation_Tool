@@ -28,7 +28,7 @@ EOF
 
   event_source_mapping = {
     sqs = {
-      event_source_arn        = aws_sqs_queue.orders_to_process.arn
+      event_source_arn = aws_sqs_queue.orders_to_process.arn
     }
   }
 
