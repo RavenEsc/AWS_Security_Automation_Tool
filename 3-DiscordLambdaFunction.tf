@@ -8,8 +8,7 @@ module "lambda_Discord" {
   source_path       = "index3.py"
 
   event_source_mapping = {
-    event_source_arn = aws_sqs_queue.orders_to_notify.arn
-    starting_position = "LATEST"
+    event_source_arn = aws_sqs_queue.orders_to_notify.event_source_arn
   }
 
   layers = [
@@ -30,6 +29,6 @@ module "lambda_layer_discord" {
   description         = "lambda layer "
   compatible_runtimes = [var.py_runtime]
 
-  source_path = "/Discord-Webhook-Dependencies.zip"
+  source_path = "Discord-Webhook-Dependencies.zip"
 }
 

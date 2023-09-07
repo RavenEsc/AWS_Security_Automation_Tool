@@ -26,8 +26,7 @@ module "lambda_s3" {
 }
 EOF
   event_source_mapping = {
-    event_source_arn = aws_sqs_queue.orders_to_process.arn
-    starting_position = "LATEST"
+    event_source_arn = aws_sqs_queue.orders_to_process.event_source_arn
   }
 
   environment_variables = {
