@@ -7,6 +7,33 @@ module "lambda_Discord" {
   runtime       = var.py_runtime
   source_path       = "index3.py"
 
+policy_json = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowLambdaToAccessBucket",
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::${var.s3_bucket_name}",
+        "arn:aws:s3:::${var.s3_bucket_name}/*"
+      ]
+    },
+    {
+      "Sid": "AllowLambdaDisSQSAccess",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:ReceiveMessage"
+      ],
+      "Resource": ${aws_sqs_queue.orders_to_process.arn}
+    }
+  ]
+}
+EOF
+
   event_source_mapping = {
     sqs = {
       event_source_arn = aws_sqs_queue.orders_to_notify.arn

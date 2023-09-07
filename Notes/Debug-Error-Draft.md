@@ -18,4 +18,13 @@ Errors->Fixes From Github:Branch:Rough-Draft:
     # with module.lambda_s3.aws_lambda_event_source_mapping.
         ## "self_managed_event_source" must be specified
             ### Removed input: starting position (not neant for SQS events)
-            
+
+4.
+    # with aws_s3_bucket_policy.s3_bucket_policy
+        ## Error putting S3 policy: NoSuchBucket: The specified bucket does not exist status code
+            ### Removed resource, added baked-in attach policy input to s3 module (and set to 'true')
+
+5.
+    # with module.lambda_Discord.aws_lambda_event_source_mapping.
+        ## InvalidParameterValueException: The provided execution role does not have permissions to call ReceiveMessage on SQS
+            ### Added attach json policy to the lambda module (Did the same to Discord Lambda function) allowed sqs:ReceiveMessage

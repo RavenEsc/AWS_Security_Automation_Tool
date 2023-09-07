@@ -7,15 +7,8 @@ module "s3_bucket" {
   control_object_ownership = true
   object_ownership         = "ObjectWriter"
 
-  versioning = {
-    enabled = true
-  }
-}
-
 # Check for potential issues POLICYs3
-resource "aws_s3_bucket_policy" "s3_bucket_policy" {
-  bucket = var.s3_bucket_name
-
+  attach_policy = true
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -34,4 +27,7 @@ resource "aws_s3_bucket_policy" "s3_bucket_policy" {
   ]
 }
 EOF
+  versioning = {
+    enabled = true
+  }
 }
