@@ -18,3 +18,4 @@ Errors->Fixes From Github:Branch:Rough-Draft:
     # with module.lambda_s3.aws_lambda_event_source_mapping.
         ## "self_managed_event_source" must be specified
             ### Removed input: starting position (not neant for SQS events)
+            
