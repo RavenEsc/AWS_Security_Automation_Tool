@@ -7,6 +7,7 @@ module "lambda_s3" {
   runtime       = var.py_runtime
   source_path       = "index2.py"
   
+  attach_policy_json = true
   policy_json = <<EOF
 {
   "Version": "2012-10-17",
@@ -28,7 +29,7 @@ module "lambda_s3" {
       "Action": [
         "sqs:ReceiveMessage"
       ],
-      "Resource": ${aws_sqs_queue.orders_to_notify.arn}
+      "Resource": "${aws_sqs_queue.orders_to_notify.arn}"
     }
   ]
 }
