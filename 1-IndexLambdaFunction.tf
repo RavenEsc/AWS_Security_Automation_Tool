@@ -8,6 +8,7 @@ module "lambda" {
   runtime           = var.py_runtime
   source_path       = "index.py"
 
+  attach_policy_json = true
   policy_json = <<EOF
 {
   "Version": "2012-10-17",

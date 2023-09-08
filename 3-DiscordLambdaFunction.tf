@@ -7,6 +7,7 @@ module "lambda_Discord" {
   runtime       = var.py_runtime
   source_path       = "index3.py"
 
+attach_policy_json = true
 policy_json = <<EOF
 {
   "Version": "2012-10-17",
@@ -28,7 +29,7 @@ policy_json = <<EOF
       "Action": [
         "sqs:ReceiveMessage"
       ],
-      "Resource": ${aws_sqs_queue.orders_to_process.arn}
+      "Resource": "${aws_sqs_queue.orders_to_process.arn}"
     }
   ]
 }
