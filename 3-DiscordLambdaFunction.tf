@@ -48,7 +48,7 @@ module "lambda_layer_discord" {
 
   layer_name          = "lambda-layer-discord"
   description         = "lambda layer"
-  compatible_runtimes = "python3.9"
+  compatible_runtimes = [var.py_runtime]
   architectures = ["x86_64"]
 
   source_path = "python.zip"
