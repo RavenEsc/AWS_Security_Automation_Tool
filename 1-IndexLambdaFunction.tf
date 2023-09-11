@@ -9,7 +9,7 @@ module "lambda" {
   source_path       = "index.py"
 
   attach_policy_json = true
-  policy_json = <<-EOT
+  policy_json = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -20,7 +20,7 @@ module "lambda" {
     }
   ]
 }
-EOT
+EOF
   environment_variables = {
     SNS_TOPIC_ARN = aws_sns_topic.orders.arn
   }
