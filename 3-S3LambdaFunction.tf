@@ -28,7 +28,8 @@ module "lambda_s3" {
       "Effect": "Allow",
       "Action": [
         "sqs:ReceiveMessage",
-        "sqs:DeleteMessage"
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes"
       ],
       "Resource": "${aws_sqs_queue.orders_to_process.arn}"
     }
