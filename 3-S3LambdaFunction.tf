@@ -29,7 +29,7 @@ module "lambda_s3" {
       "Action": [
         "sqs:ReceiveMessage"
       ],
-      "Resource": "${aws_sqs_queue.orders_to_notify.arn}"
+      "Resource": "${aws_sqs_queue.orders_to_process.arn}"
     }
   ]
 }
