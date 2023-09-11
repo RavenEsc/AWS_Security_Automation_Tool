@@ -47,7 +47,7 @@ module "lambda_layer_discord" {
   create_layer = true
 
   layer_name          = "lambda-layer-discord"
-  description         = "lambda layer "
+  description         = "lambda layer"
   compatible_runtimes = [var.py_runtime]
   architectures = ["x86_64"]
 
