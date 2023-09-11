@@ -4,7 +4,7 @@ module "lambda_Discord" {
   function_name = "lambda-sat-discord"
   description   = "Sends messages as notifications from the SQS Queue to Discord Webhook Bot"
   handler       = "index3.lambda_handler"
-  runtime       = var.py_runtime
+  runtime       = "python3.9"
   source_path       = "index3.py"
 
 attach_policy_json = true
@@ -48,8 +48,8 @@ module "lambda_layer_discord" {
 
   layer_name          = "lambda-layer-discord"
   description         = "lambda layer"
-  compatible_runtimes = [var.py_runtime]
-  architectures = ["x86_64"]
+  compatible_runtimes = "python3.9"
+  architectures       = "x86_64"
 
   source_path = "python.zip"
 }
