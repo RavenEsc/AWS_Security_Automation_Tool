@@ -12,7 +12,8 @@ resource "aws_sqs_queue_policy" "orders_to_process_subscription" {
       },
       "Action": [
         "sqs:ReceiveMessage",
-        "sqs:DeleteMessage"
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes"
       ],
       "Resource": [
         "${aws_sqs_queue.orders_to_process.arn}"
@@ -59,7 +60,8 @@ resource "aws_sqs_queue_policy" "orders_to_notify_subscription" {
       },
       "Action": [
         "sqs:ReceiveMessage",
-        "sqs:DeleteMessage"
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes"
       ],
       "Resource": [
         "${aws_sqs_queue.orders_to_notify.arn}"
