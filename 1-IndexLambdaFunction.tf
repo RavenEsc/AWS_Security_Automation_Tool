@@ -9,18 +9,18 @@ module "lambda" {
   source_path       = "index.py"
 
   attach_policy_json = true
-  policy_json = <<EOF
+  policy_json = <<-EOT
 {
   "Version": "2012-10-17",
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": "sns:Publish",
-      "Resource": "arn:aws:sns:${var.reg}:${local.account_id}:${aws_sns_topic.orders.arn}"
+      "Action": ["sns:Publish"],
+      "Resource": ["arn:aws:sns:${var.reg}:${local.account_id}:${aws_sns_topic.orders.arn}"]
     }
   ]
 }
-EOF
+EOT
   environment_variables = {
     SNS_TOPIC_ARN = aws_sns_topic.orders.arn
   }
