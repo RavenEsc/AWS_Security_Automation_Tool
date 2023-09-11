@@ -1,4 +1,4 @@
-import discord_webhook
+from discord_webhook import DiscordWebhook, DsicordEmbed
 import traceback
 
 def lambda_handler(event, context):
