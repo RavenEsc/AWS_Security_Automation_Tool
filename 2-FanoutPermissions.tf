@@ -11,7 +11,8 @@ resource "aws_sqs_queue_policy" "orders_to_process_subscription" {
         "Service": "lambda.amazonaws.com"
       },
       "Action": [
-        "sqs:ReceiveMessage"
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage"
       ],
       "Resource": [
         "${aws_sqs_queue.orders_to_process.arn}"
@@ -57,7 +58,8 @@ resource "aws_sqs_queue_policy" "orders_to_notify_subscription" {
         "Service": "lambda.amazonaws.com"
       },
       "Action": [
-        "sqs:ReceiveMessage"
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage"
       ],
       "Resource": [
         "${aws_sqs_queue.orders_to_notify.arn}"

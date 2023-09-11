@@ -16,7 +16,8 @@ policy_json = <<EOF
       "Sid": "AllowLambdaDisSQSAccess",
       "Effect": "Allow",
       "Action": [
-        "sqs:ReceiveMessage"
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage"
       ],
       "Resource": "${aws_sqs_queue.orders_to_notify.arn}"
     }
