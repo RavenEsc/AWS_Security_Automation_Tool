@@ -1,5 +1,7 @@
 # Project SAT
 
+## Week 2
+
 Update:
 
 - Developed and designed the terraform and python codes, undeployed
@@ -14,6 +16,10 @@ Update:
 - Debugged and wrote any errors and attempts to fix in Debug-Error-Draft.md
 
 - Completed the Design of the architecture and debugging, moving on to the inner-workings and python code
+
+## Week 3
+
+- Built and tested, got IAM policies working, trust has been set up between the services, python functions tested
 
 <!-- ## Meeting 3:
 
