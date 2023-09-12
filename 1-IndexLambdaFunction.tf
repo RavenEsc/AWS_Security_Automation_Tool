@@ -6,6 +6,8 @@ module "lambda" {
   handler            = "index.lambda_handler"
   runtime            = var.py_runtime
   source_path        = "index.py"
+  timeout            = 10
+
   attach_policy_json = true
   policy_json = <<EOF
 {

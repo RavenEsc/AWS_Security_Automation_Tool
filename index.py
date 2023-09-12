@@ -12,9 +12,9 @@ def lambda_handler(event, context):
         public_instances = []
         for instance in instances['Reservations']:
             for i in instance['Instances']:
-                if i['NetworkInterfaces'][0]['PublicIpv4Address'] is not None:
+                if 'NetworkInterfaces' in i and i['NetworkInterfaces'][0].get('PublicIpv4Address'):
                     public_instances.append(i)
-                elif i['PublicDnsName'] is not None:
+                elif 'PublicDnsName' in i and i['PublicDnsName']:
                     public_instances.append(i)
 
     except Exception as e:
@@ -40,7 +40,7 @@ def lambda_handler(event, context):
 
             # Return a status code 200 with a body 'Results published to SNS'
             return {'statusCode': 200, 'body': 'Results published to SNS'}
-        except Exception as ezx:
+        except Exception as e:
             traceback_msg = traceback.format_exc()
             return {
                 'statusCode': 500,
