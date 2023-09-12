@@ -51,6 +51,6 @@ module "lambda_layer_discord" {
   compatible_runtimes = ["python3.9"]
   compatible_architectures = ["x86_64"]
 
-  source_path = "../python.zip"
+  source_path = "../src/python.zip"
 }
 

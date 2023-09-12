@@ -1,3 +1,4 @@
+import discord_webhook
 from discord_webhook import DiscordWebhook, DiscordEmbed
 import traceback
 
