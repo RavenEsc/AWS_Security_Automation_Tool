@@ -16,7 +16,7 @@ module "lambda" {
     {
       "Effect": "Allow",
       "Action": ["sns:Publish"],
-      "Resource": ["arn:aws:sns:${var.reg}:${local.account_id}:${aws_sns_topic.orders.arn}"]
+      "Resource": ["${aws_sns_topic.orders.arn}"]
     },
     {
       "Effect": "Allow",
