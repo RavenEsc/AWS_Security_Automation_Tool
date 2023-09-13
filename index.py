@@ -29,10 +29,18 @@ def lambda_handler(event, context):
         # Return a status code 200 with a body 'No Results to publish'
         return {'statusCode': 200, 'body': 'No Results to publish'}
     else:
+        # Filter to only instance-id
+        filtered_instances = []
+        for public_instance in public_instances:
+            filtered_instances.append(public_instance['InstanceID'])
+            filtered_instances.append(public_instance['NestedInterfaces']['PublicIP'])
+            filtered_instances.append(public_instance['NestedInterfaces']['Attachment']['AttachTime'])
+
+
         # Publish the results to the SNS topic
         sns = boto3.client('sns')
         try:
-            pub_message=json.dumps(public_instances, default=str)
+            pub_message=json.dumps(filtered_instances, default=str, indent=4)
             sns.publish(
                 TopicArn=os.getenv('SNS_TOPIC_ARN'),
                 Message=pub_message,
