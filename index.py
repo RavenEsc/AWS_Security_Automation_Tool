@@ -32,9 +32,10 @@ def lambda_handler(event, context):
         # Filter to only instance-id
         filtered_instances = []
         for public_instance in public_instances:
-            filtered_instances.append(public_instance['InstanceID'])
-            filtered_instances.append(public_instance['NestedInterfaces']['PublicIP'])
-            filtered_instances.append(public_instance['NestedInterfaces']['Attachment']['AttachTime'])
+            for network_interface in public_instance['NetworkInterfaces']:
+                filtered_instances.append(public_instance['InstanceId'])
+                filtered_instances.append(network_interface['Association']['PublicIp'])
+                filtered_instances.append(network_interface['Attachment']['AttachTime'])
 
 
         # Publish the results to the SNS topic

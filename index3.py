@@ -23,9 +23,10 @@ def lambda_handler(event, context):
         webhook = discord_webhook.DiscordWebhook(url="https://discordapp.com/api/webhooks/1147701063630196786/PVU9g477tn2u9ko0LZ5uTg4SUoQGqe_iSftGdhjZi1Szz5aIDDEew4soEPL80S3EYizy")
 
         # Create a DiscordEmbed object to define the content of the message
+        discord_message = f"Instance ID: {message[0]}\nPublic IP: {message[1]}\nAttachment Time: {message[2]}"
         embed = discord_webhook.DiscordEmbed(
             title="Alert!",
-            description=f"{message} :)",
+            description=f"{discord_message}\n:)",
             color="03b2f8"
         )
         webhook.add_embed(embed)
