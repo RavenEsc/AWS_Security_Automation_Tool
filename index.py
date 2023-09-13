@@ -45,5 +45,5 @@ def lambda_handler(event, context):
             traceback_msg = traceback.format_exc()
             return {
                 'statusCode': 500,
-                'body': {"message": f"Error publishing to SNS Topic: {str(e)}", 'traceback': traceback_msg, 'Message': pub_message}
+                'body': {"message": f"Error publishing to SNS Topic: {str(e)}", 'traceback': traceback_msg, 'json_message': pub_message}
                 }

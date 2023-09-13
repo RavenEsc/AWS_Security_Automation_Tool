@@ -27,9 +27,9 @@ def lambda_handler(event, context):
         # Create a file in S3 bucket with the message as content
         bucket_name = os.getenv('buck_lm')
         folder_path = f"{current_date}/"
-        file_name = f"{folder_path}{current_time.strftime('%H-%M-%S')}-ec2pubcheck.txt"
+        file_name = f"{folder_path}{current_time.strftime('%H:%M:%S')}-ec2pubcheck.json"
         s3.put_object(
-            Body=f"{current_time} {message}",
+            Body=message,
             Bucket=bucket_name,
             Key=file_name
         )

@@ -6,12 +6,16 @@ def lambda_handler(event, context):
 
     try:
         # Get the new messages from the SQS Queue
-        message = event.get("Message")
+        records = event['Records']
+
+        for record in records:
+            message = record['body']
+
     except Exception as e:
         traceback_message = traceback.format_exc()
         return {
             "statusCode": 500,
-            "body": {"message": f"Error processing SQS messages: {e}","traceback": traceback_message}
+            "body": {"message": f"Error processing SQS messages: {e}","traceback": traceback_message, "json_message": message}
         }
 
     try:
@@ -30,7 +34,7 @@ def lambda_handler(event, context):
         traceback_message = traceback.format_exc()
         return {
             "statusCode": 500,
-            "body": {"message": f"Error sending Discord message: {e}","traceback": traceback_message}
+            "body": {"message": f"Error sending Discord message: {e}","traceback": traceback_message, "json_message": message}
         }
 
     return {
