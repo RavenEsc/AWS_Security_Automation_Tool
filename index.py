@@ -34,13 +34,11 @@ def lambda_handler(event, context):
         for public_instance in public_instances:
             for network_interface in public_instance['NetworkInterfaces']:
                 instance = {
-                    "Alert": "Public_EC2_Instance",
-                    "Instance_Details": {
+                        "Alert": "EC2_Public_Instance",
                         "ID": public_instance['InstanceId'],
                         "Public_IP": network_interface['Association']['PublicIp'],
                         "Time_Created": network_interface['Attachment']['AttachTime']
                     }
-                }
                 filtered_instances.append(instance)
 
 
