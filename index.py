@@ -33,9 +33,15 @@ def lambda_handler(event, context):
         filtered_instances = []
         for public_instance in public_instances:
             for network_interface in public_instance['NetworkInterfaces']:
-                filtered_instances.append(public_instance['InstanceId'])
-                filtered_instances.append(network_interface['Association']['PublicIp'])
-                filtered_instances.append(network_interface['Attachment']['AttachTime'])
+                instance = {
+                    "Alert": "Public_EC2_Instance",
+                    "Instance_Details": {
+                        "ID": public_instance['InstanceId'],
+                        "Public_IP": network_interface['Association']['PublicIp'],
+                        "Time_Created": network_interface['Attachment']['AttachTime']
+                    }
+                }
+                filtered_instances.append(instance)
 
 
         # Publish the results to the SNS topic
