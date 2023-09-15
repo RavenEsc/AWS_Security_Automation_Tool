@@ -1,10 +1,16 @@
+import logging
 import os
 import json
 import boto3
 import traceback
 
+# Initialize logger
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
 def lambda_handler(event, context):
-    try: # Get the list of EC2 instances
+    try:
+        # Get the list of EC2 instances
         ec2 = boto3.client('ec2')
         instances = ec2.describe_instances()
 
@@ -16,13 +22,16 @@ def lambda_handler(event, context):
                     public_instances.append(i)
                 elif 'PublicDnsName' in i and i['PublicDnsName']:
                     public_instances.append(i)
-
+    
+    # Handles the errors for reading the EC2 instances
     except Exception as e:
         traceback_msg = traceback.format_exc()
-        return {'statusCode': 500,
-                'body': {"message": f"Error reading/listing EC2 instances: {str(e)}", 'traceback': traceback_msg}
-                }
-        # Code ends here if there is an error
+        logging.error(f"Error reading/listing EC2 instances: {str(e)}")
+        logging.error(traceback_msg)
+        return {
+                'statusCode': 500,
+                'body': {"message": f"Error reading/listing EC2 instances: {str(e)}"}
+            }
 
     # Check if the public_instances list is empty
     if not public_instances:
@@ -54,9 +63,14 @@ def lambda_handler(event, context):
 
             # Return a status code 200 with a body 'Results published to SNS'
             return {'statusCode': 200, 'body': 'Results published to SNS'}
+        
+        # Handles the errors for pushing the results to the SNS topic
         except Exception as e:
             traceback_msg = traceback.format_exc()
+            logging.error(f"Error publishing to SNS Topic: {str(e)}")
+            logging.error(traceback_msg)
+            logging.error(pub_message)
             return {
                 'statusCode': 500,
-                'body': {"message": f"Error publishing to SNS Topic: {str(e)}", 'traceback': traceback_msg, 'json_message': pub_message}
+                'body': {"message": f"Error publishing to SNS Topic: {str(e)}"}
                 }

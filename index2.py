@@ -1,7 +1,12 @@
+import logging
 import os
 import datetime
 import boto3
 import traceback
+
+# Initialize logger
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
     try:
@@ -10,9 +15,6 @@ def lambda_handler(event, context):
 
         # Create S3 client
         s3 = boto3.client('s3')  # Move outside the loop for efficiency
-
-        # Encode message using desired encoding (e.g., 'utf-8')
-        message_bytes = message.encode('utf-8')
         
         for record in records:
             message = record['body']
@@ -28,24 +30,34 @@ def lambda_handler(event, context):
                 file_name = f"{folder_path}{current_time.strftime('%H:%M:%S')}-ec2pubcheck.json"
                 
                 s3.put_object(
-                    Body=message_bytes,
+                    Body=message,
                     Bucket=bucket_name,
                     Key=file_name
                 )
+
+            # Handles the errors for creating the output log file in the S3 bucket
             except Exception as e:
                 traceback_message = traceback.format_exc()
+                logger.error(f"Error creating file in S3 bucket: {e}")
+                logger.error(traceback_message)
+                logger.error(message)
                 return {
                     "statusCode": 500,
-                    "body": {"message": f"Error creating file in S3 bucket: {e}", "traceback": traceback_message}
+                    "body": {"message": f"Error creating file in S3 bucket: {e}"}
                 }
-
+            
+    # Handles the errors for recieving the messages
     except Exception as e:
         traceback_message = traceback.format_exc()
+        logger.error(f"Error recieving SQS message(s): {e}")
+        logger.error(traceback_message)
+        logger.error(message)
         return {
             "statusCode": 500,
-            "body": {"message": f"Error processing SQS messages: {e}", "traceback": traceback_message}
+            "body": {"message": f"Error recieving SQS message(s): {e}"}
         }
 
+    # Code Ends, notifies code worked properly
     return {
         "statusCode": 200,
         "body": "Messages transferred to S3 successfully"
