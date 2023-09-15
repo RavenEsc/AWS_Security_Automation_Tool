@@ -24,11 +24,12 @@ def lambda_handler(event, context):
                     time_created = item['Time_Created']
                     
                     try:
-                        # Sends the PublicEC2 Alert message formatted to be easily readable to Discord channel webhook integration
+                        # Sends the PublicEC2 Alert message formatted to be easily readable to Discord channel webhook integration, pings all users who can see the channel
                         webhook = DiscordWebhook(url="https://discordapp.com/api/webhooks/1147701063630196786/PVU9g477tn2u9ko0LZ5uTg4SUoQGqe_iSftGdhjZi1Szz5aIDDEew4soEPL80S3EYizy")
                         embed = DiscordEmbed(
                             title="Public EC2 Instance!",
-                            description=f"Instance ID: {id}\nPublic IP: {public_ip}\nAttachment Time: {time_created}",
+                            description=f"Instance ID: {id}\nPublic IP: {public_ip}\nAttachment Time: {time_created}\n@everyone",
+                            allowed_mentions={"everyone"},
                             color=0x03b2f8
                         )
                         webhook.add_embed(embed)
