@@ -14,19 +14,3 @@ Update:
 - Debugged and wrote any errors and attempts to fix in Debug-Error-Draft.md
 
 - Completed the Design of the architecture and debugging, moving on to the inner-workings and python code
-
-<!-- ## Meeting 3:
-
-&rarr; 
-
-&rarr; 
-
-&rarr; 
-
-&rarr; 
-
-
-
-### Next Meeting:
- Set a sub-goal:
-  -->

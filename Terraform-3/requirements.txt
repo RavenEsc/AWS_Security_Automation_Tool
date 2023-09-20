@@ -1,0 +1,1 @@
+# installs all dependencies for discord_webhook lambda function
