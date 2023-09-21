@@ -5,7 +5,10 @@ module "iamlambda" {
   description        = "Checks for overly permissive IAM policies"
   handler            = "opiam-check.lambda_handler"
   runtime            = var.py_runtime
-  source_path        = "../Code/opiam-check.py"
+  source_path        = [
+    "../Code/opiam-check.py",
+    "../Dependencies"
+    ]
   timeout            = 10
 
   attach_policy_json = true
@@ -22,6 +25,11 @@ module "iamlambda" {
       "Effect": "Allow",
       "Action": ["iam:ListPolicies", "iam:ListEntitiesForPolicy"],
       "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["secretsmanager:GetSecretValue"],
+      "Resource": ["arn:aws:secretsmanager:<region>:<account-id>:secret:<secret-name>"]
     }
   ]
 }

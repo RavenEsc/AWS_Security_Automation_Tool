@@ -61,7 +61,7 @@ def lambda_handler(event, context):
         # Filter to only UserName and UserID
         filtered_UnAuth = []
         for Unauthorized_Admin in Unauthorized_Admins:
-            if 'UserName' in Unauthorized_Admin:
+            if 'GroupName' in Unauthorized_Admin:
                 Group = {
                         "Alert": "Unauthorized_Admin_Group",
                         "Group": Unauthorized_Admin['GroupName'],
