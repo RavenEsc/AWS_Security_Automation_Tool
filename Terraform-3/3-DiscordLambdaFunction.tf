@@ -5,7 +5,10 @@ module "lambda_Discord" {
   description   = "Sends messages as notifications from the SQS Queue to Discord Webhook Bot"
   handler       = "discordnote.lambda_handler"
   runtime       = var.py_runtime
-  source_path       = "../Code/discordnote.py"
+  source_path       = [
+    "../Code/discordnote.py",
+    "../Dependencies"
+    ]
 
 attach_policy_json = false
 policy_json = <<EOF

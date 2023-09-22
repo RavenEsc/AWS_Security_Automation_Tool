@@ -5,10 +5,7 @@ module "iamlambda" {
   description        = "Checks for overly permissive IAM policies"
   handler            = "opiam-check.lambda_handler"
   runtime            = var.py_runtime
-  source_path        = [
-    "../Code/opiam-check.py",
-    "../Dependencies"
-    ]
+  source_path        = ["../Code/opiam-check.py",]
   timeout            = 10
 
   attach_policy_json = true
