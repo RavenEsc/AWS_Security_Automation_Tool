@@ -5,7 +5,7 @@ module "lambda_s3" {
   description   = "Sends messages as logs from SQS Queue to an S3 bucket"
   handler       = "s3export.lambda_handler"
   runtime       = var.py_runtime
-  source_path       = "../Code/s3export.py"
+  source_path       = "../code/s3loglambda"
   
   attach_policy_json = false
   policy_json = <<EOF

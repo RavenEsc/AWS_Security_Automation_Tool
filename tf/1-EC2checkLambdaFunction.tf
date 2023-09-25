@@ -5,7 +5,7 @@ module "ec2lambda" {
   description        = "Checks for public facing ec2 instances"
   handler            = "pec2-check.lambda_handler"
   runtime            = var.py_runtime
-  source_path        = "../Code/pec2-check.py"
+  source_path        = "../code/publicec2checklambda"
   timeout            = 10
 
   attach_policy_json = true
