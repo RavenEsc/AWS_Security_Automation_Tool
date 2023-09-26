@@ -22,7 +22,7 @@ module "iamlambda" {
       "Effect": "Allow",
       "Action": ["iam:ListPolicies", "iam:ListEntitiesForPolicy"],
       "Resource": "*"
-    },
+    }
   ]
 }
 EOF
