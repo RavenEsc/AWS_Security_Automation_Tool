@@ -23,11 +23,6 @@ module "iamlambda" {
       "Action": ["iam:ListPolicies", "iam:ListEntitiesForPolicy"],
       "Resource": "*"
     },
-    {
-      "Effect": "Allow",
-      "Action": ["secretsmanager:GetSecretValue"],
-      "Resource": ["arn:aws:secretsmanager:<region>:<account-id>:secret:<secret-name>"]
-    }
   ]
 }
 EOF
