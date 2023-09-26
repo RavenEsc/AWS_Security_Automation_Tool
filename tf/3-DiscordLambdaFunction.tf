@@ -7,7 +7,7 @@ module "lambda_Discord" {
   runtime       = var.py_runtime
   source_path       = "../code/discordlambda"
 
-attach_policy_json = false
+attach_policy_json = true
 policy_json = <<EOF
 {
   "Version": "2012-10-17",
