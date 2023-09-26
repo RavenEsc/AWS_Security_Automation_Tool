@@ -27,7 +27,8 @@ module "lambda_s3" {
       "Sid": "AllowLambdaS3SQSAccess",
       "Effect": "Allow",
       "Action": [
-        "sqs:ReceiveMessage"
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage"
       ],
       "Resource": "${aws_sqs_queue.orders_to_process.arn}"
     }
