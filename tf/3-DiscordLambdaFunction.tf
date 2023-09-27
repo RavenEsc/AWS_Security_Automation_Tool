@@ -1,6 +1,6 @@
 module "lambda_Discord" {
   source = "terraform-aws-modules/lambda/aws"
-
+  version       = "6.0.0"
   function_name = "lambda-sat-discord"
   description   = "Sends messages as notifications from the SQS Queue to Discord Webhook Bot"
   handler       = "discordnote.lambda_handler"
