@@ -4,7 +4,7 @@ module "lambda_Discord" {
   function_name = "lambda-sat-discord"
   description   = "Sends messages as notifications from the SQS Queue to Discord Webhook Bot"
   handler       = "discordnote.lambda_handler"
-  runtime       = "python3.10"
+  runtime       = "python3.8"
   source_path = [
         {
             path = "../code/discordlambda"
