@@ -8,7 +8,7 @@ module "lambda_Discord" {
   source_path = [
         {
             path = "${path.module}/../code/discordlambda"
-            pip_requirements = false
+            pip_requirements = true
         }
   ]
 
