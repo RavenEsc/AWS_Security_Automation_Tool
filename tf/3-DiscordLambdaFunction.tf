@@ -7,7 +7,7 @@ module "lambda_Discord" {
   runtime       = var.py_runtime
   source_path = [
         {
-            path = "${path.module}/code/discordlambda"
+            path = "${path.module}/src/code/discordlambda"
             pip_requirements = false
         }
   ]
