@@ -6,7 +6,7 @@ module "ec2lambda" {
   handler            = "pec2-check.lambda_handler"
   runtime            = var.py_runtime
   source_path        = "../code/publicec2checklambda"
-  timeout            = 400
+  timeout            = 840 # 14 minutes max (Can only potentially scan 3 open instances due to port scan)
 
   attach_policy_json = true
   policy_json = <<EOF

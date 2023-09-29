@@ -26,7 +26,7 @@ def lambda_handler(event, context):
 
                     for port in range(0, 1025):
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        sock.settimeout(.25)  # Set a timeout for the connection attempt
+                        sock.settimeout(.2)  # Sets timeout for the connection attempt
                         result = sock.connect_ex((ip_address, port))
                         if result == 0:
                             print(port)
