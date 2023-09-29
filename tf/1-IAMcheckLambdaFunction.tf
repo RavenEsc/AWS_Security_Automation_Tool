@@ -20,7 +20,7 @@ module "iamlambda" {
     },
     {
       "Effect": "Allow",
-      "Action": ["iam:ListPolicies", "iam:ListEntitiesForPolicy"],
+      "Action": ["iam:ListEntitiesForPolicy"],
       "Resource": "*"
     }
   ]

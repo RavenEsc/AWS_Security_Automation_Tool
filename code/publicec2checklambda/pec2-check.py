@@ -24,11 +24,12 @@ def lambda_handler(event, context):
                     ip_address = i['PublicIpAddress']
                     open_ports = []
 
-                    for port in range(1, 65536):
+                    for port in range(0, 1025):
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        sock.settimeout(1)  # Set a timeout for the connection attempt
+                        sock.settimeout(.25)  # Set a timeout for the connection attempt
                         result = sock.connect_ex((ip_address, port))
                         if result == 0:
+                            print(port)
                             open_ports.append(port)
                         sock.close()
 
@@ -36,7 +37,21 @@ def lambda_handler(event, context):
                         i['OpenPorts'] = open_ports
                         public_instances.append(i)
                 elif 'PublicDnsName' in i and i['PublicDnsName']:
-                    # potential port scan??
+                    ip_address = i['PublicIpAddress']
+                    open_ports = []
+
+                    for port in range(0, 1025):
+                        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        sock.settimeout(.25)  # Set a timeout for the connection attempt
+                        result = sock.connect_ex((ip_address, port))
+                        if result == 0:
+                            print(port)
+                            open_ports.append(port)
+                        sock.close()
+
+                    if open_ports:
+                        i['OpenPorts'] = open_ports
+                        public_instances.append(i)
                     public_instances.append(i)
 
     # Handles the errors for reading the EC2 instances
@@ -63,18 +78,20 @@ def lambda_handler(event, context):
         filtered_instances = []
         for public_instance in public_instances:
             for network_interface in public_instance['NetworkInterfaces']:
+                open_ports = public_instance['OpenPorts']
                 instance = {
                     "Alert": "EC2_Public_Instance",
                     "ID": public_instance['InstanceId'],
                     "Public_IP": network_interface['Association']['PublicIp'],
-                    "Time_Created": network_interface['Attachment']['AttachTime']
+                    "Time_Created": network_interface['Attachment']['AttachTime'],
+                    "Open_Ports": list(open_ports)
                 }
                 filtered_instances.append(instance)
 
         # Publish the results to the SNS topic
         sns = boto3.client('sns')
         try:
-            pub_message = json.dumps(public_instances, default=str, indent=4)
+            pub_message = json.dumps(filtered_instances, default=str, indent=4)
             sns.publish(
                 TopicArn=os.getenv('SNS_TOPIC_ARN'),
                 Message=pub_message,
