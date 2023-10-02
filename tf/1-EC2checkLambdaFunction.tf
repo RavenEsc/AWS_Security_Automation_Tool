@@ -32,6 +32,7 @@ EOF
       principal  = "events.amazonaws.com"
       source_arn = "arn:aws:events:${var.reg}:${local.account_id}:rule/crons-rule"
     }
+  }
     environment_variables = {
     SNS_TOPIC_ARN = aws_sns_topic.orders.arn
   }
