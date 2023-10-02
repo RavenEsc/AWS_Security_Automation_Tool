@@ -16,3 +16,7 @@
 output "account_id" {
   value = local.account_id
 }
+
+output "evb" {
+  value = module.eventbridge.eventbridge_rule_arns
+}

@@ -15,6 +15,12 @@ module "iamlambda" {
   "Statement": [
     {
       "Effect": "Allow",
+      "Action": ["lambda:InvokeFunction"],
+      "Principal": ["events.amazonaws.com"]
+      "Resource": ["${module.eventbridge.eventbridge_rule_arns}"]
+    },
+    {
+      "Effect": "Allow",
       "Action": ["sns:Publish"],
       "Resource": ["${aws_sns_topic.orders.arn}"]
     },
