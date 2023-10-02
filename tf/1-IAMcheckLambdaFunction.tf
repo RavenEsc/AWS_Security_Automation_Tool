@@ -16,7 +16,7 @@ module "iamlambda" {
     {
       "Effect": "Allow",
       "Action": ["lambda:InvokeFunction"],
-      "Principal": ["events.amazonaws.com"],
+      "Principal": {"Service": ["events.amazonaws.com"]},
       "Resource": ["arn:aws:events:${var.reg}:${local.account_id}:rule/crons-rule"]
     },
     {
