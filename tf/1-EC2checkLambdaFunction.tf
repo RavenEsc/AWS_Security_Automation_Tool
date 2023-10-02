@@ -17,7 +17,7 @@ module "ec2lambda" {
       "Effect": "Allow",
       "Action": ["lambda:InvokeFunction"],
       "Principal": ["events.amazonaws.com"],
-      "Resource": ["${module.eventbridge.eventbridge_bus_arn}"]
+      "Resource": ["arn:aws:events:us-east-1:464004139021:rule/crons-rule"]
     },
     {
       "Effect": "Allow",
