@@ -15,6 +15,11 @@ module "ec2lambda" {
   "Statement": [
     {
       "Effect": "Allow",
+      "Action": ["lambda:InvokeFunction"],
+      "Resource": ["arn:aws:events:${var.reg}:${local.account_id}:rule/crons-rule"]
+    },
+    {
+      "Effect": "Allow",
       "Action": ["sns:Publish"],
       "Resource": ["${aws_sns_topic.orders.arn}"]
     },
