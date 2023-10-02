@@ -17,7 +17,7 @@ module "iamlambda" {
       "Effect": "Allow",
       "Action": ["lambda:InvokeFunction"],
       "Principal": ["events.amazonaws.com"]
-      "Resource": ["${module.eventbridge.eventbridge_rule_arns}"]
+      "Resource": ["${module.eventbridge.eventbridge_bus_arn}"]
     },
     {
       "Effect": "Allow",
