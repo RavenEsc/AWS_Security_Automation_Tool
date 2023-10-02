@@ -15,11 +15,6 @@ module "iamlambda" {
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": ["lambda:InvokeFunction"],
-      "Resource": ["arn:aws:events:${var.reg}:${local.account_id}:rule/crons-rule"]
-    },
-    {
-      "Effect": "Allow",
       "Action": ["sns:Publish"],
       "Resource": ["${aws_sns_topic.orders.arn}"]
     },
@@ -31,10 +26,18 @@ module "iamlambda" {
   ]
 }
 EOF
+
+  allowed_triggers = {
+      EventBridge = {
+      principal  = "events.amazonaws.com"
+      source_arn = "arn:aws:events:${var.reg}:${local.account_id}:rule/crons-rule"
+    }
+
   environment_variables = {
     SNS_TOPIC_ARN = aws_sns_topic.orders.arn
   }
   tags = {
     Name = "my-lambda-iam"
   }
+}
 }
