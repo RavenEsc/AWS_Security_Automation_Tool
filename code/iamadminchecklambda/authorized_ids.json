@@ -1,6 +1,6 @@
 {
     "_comment": "This will Eventually be in a secured enviornment, it is curretntly here as a reminder so no data is given",
     "AuthorizedGroups": [],
-    "AuthorizedUsers": [],
-    "AuthorizedRoles": []
+    "AuthorizedUsers": ["AIDAWYCGNJAGR3IKFRVXG"],
+    "AuthorizedRoles": ["AROAWYCGNJAG2IKMC57KI", "AROAWYCGNJAG6B3KU7BLZ", "AROAWYCGNJAG7IK6DDTKD", "AROAWYCGNJAG7ZD6IX3HJ", "AROAWYCGNJAGSC7ATXSRU"]
 }

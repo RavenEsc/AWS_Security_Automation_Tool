@@ -26,5 +26,5 @@ variable "s3_bucket_name" {
 
 variable "py_runtime" {
   type = string
-  default = "python3.10"
+  default = "python3.11"
 }

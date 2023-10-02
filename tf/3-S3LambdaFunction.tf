@@ -1,6 +1,6 @@
 module "lambda_s3" {
   source = "terraform-aws-modules/lambda/aws"
-
+  version       = "6.0.0"
   function_name = "lambda-sat-s3"
   description   = "Sends messages as logs from SQS Queue to an S3 bucket"
   handler       = "s3export.lambda_handler"
