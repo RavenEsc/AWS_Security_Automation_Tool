@@ -7,6 +7,7 @@ module "iamlambda" {
   runtime            = var.py_runtime
   source_path        = "../code/iamadminchecklambda"
   timeout            = 10
+  publish            = true
 
   attach_policy_json = true
   policy_json = <<EOF
