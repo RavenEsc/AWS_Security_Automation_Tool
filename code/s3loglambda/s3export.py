@@ -18,33 +18,35 @@ def lambda_handler(event, context):
         
         for record in records:
             message = record['body']
-            
+
             # Create time variables (current_time and current_date)
             current_time = datetime.datetime.now()
             current_date = datetime.date.today()
+            for item in message:
+                # Alert Value 
+                alert = item['Alert']
+                try:
+                    # Create a file in S3 bucket with the message as content
+                    bucket_name = os.getenv('buck_lm')
+                    folder_path = f"{current_date}/"
+                    file_name = f"{folder_path}{current_time.strftime('%H:%M:%S')}-{alert}.json"
+                    
+                    s3.put_object(
+                        Body=message,
+                        Bucket=bucket_name,
+                        Key=file_name
+                    )
 
-            try:
-                # Create a file in S3 bucket with the message as content
-                bucket_name = os.getenv('buck_lm')
-                folder_path = f"{current_date}/"
-                file_name = f"{folder_path}{current_time.strftime('%H:%M:%S')}-ec2pubcheck.json"
-                
-                s3.put_object(
-                    Body=message,
-                    Bucket=bucket_name,
-                    Key=file_name
-                )
-
-            # Handles the errors for creating the output log file in the S3 bucket
-            except Exception as e:
-                traceback_message = traceback.format_exc()
-                logger.error(f"Error creating file in S3 bucket: {e}")
-                logger.error(traceback_message)
-                logger.error(message)
-                return {
-                    "statusCode": 500,
-                    "body": {"message": f"Error creating file in S3 bucket: {e}"}
-                }
+                # Handles the errors for creating the output log file in the S3 bucket
+                except Exception as e:
+                    traceback_message = traceback.format_exc()
+                    logger.error(f"Error creating file in S3 bucket: {e}")
+                    logger.error(traceback_message)
+                    logger.error(message)
+                    return {
+                        "statusCode": 500,
+                        "body": {"message": f"Error creating file in S3 bucket: {e}"}
+                    }
             
     # Handles the errors for recieving the messages
     except Exception as e:
