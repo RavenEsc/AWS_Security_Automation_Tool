@@ -25,3 +25,5 @@ ____________________
 Update: I can not use GitHub Actions with Terraform VCS, and the current lambda module is not compatible with the Version Control TFC. So the only current option is to create a local module. Time to learn how to make a module!
 
 Update: Looks like making a module would not fix the issue of avoiding .zip files like the lambda layer as it was originally intended. I will have took look into other ways of installing the dependencies. For now, I am running tests on the original issue from the lambda module. Hopefully I discover the issue. But I am now dealing with credential inaccess again?! Lots of prayer is going into this!
+
+Update: I have discovered how to solve the RunTime error. I simply have to remove TFC's enviornment from the equation by running it locally. It functioned properly after I made a shorcut to the current python RunTime and ran the 'terraform plan' on my Windows Machine. And it WORKS! Currently, I am unsure if it will run the same if I run it off of GitHub's enviornment, I plan to put it to the test soon!

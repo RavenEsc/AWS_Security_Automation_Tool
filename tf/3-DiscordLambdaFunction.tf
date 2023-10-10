@@ -11,51 +11,49 @@ module "lambda_Discord" {
             pip_requirements = true
         }
   ]
+
+attach_policy_json = true
+policy_json = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowLambdaDisSQSAccess",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes"
+      ],
+      "Resource": "${aws_sqs_queue.orders_to_notify.arn}"
+    }
+  ]
+}
+EOF
+
+  event_source_mapping = {
+    sqs = {
+      event_source_arn = aws_sqs_queue.orders_to_notify.arn
+    }
+  }
+
+  # layers = [
+  #   module.lambda_layer_discord.lambda_layer_arn,
+  # ]
+
+  tags = {
+    Name = "my-lambda-discord"
+  }
 }
 
+# module "lambda_layer_discord" {
+#   source = "terraform-aws-modules/lambda/aws"
 
-# attach_policy_json = true
-# policy_json = <<EOF
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Sid": "AllowLambdaDisSQSAccess",
-#       "Effect": "Allow",
-#       "Action": [
-#         "sqs:ReceiveMessage",
-#         "sqs:DeleteMessage",
-#         "sqs:GetQueueAttributes"
-#       ],
-#       "Resource": "${aws_sqs_queue.orders_to_notify.arn}"
-#     }
-#   ]
+#   create_layer = true
+
+#   layer_name          = "lambda-layer-discord"
+#   description         = "lambda layer that will build the dependencies upon deploy, without leaving a trace of the .zip file"
+#   compatible_runtimes = [var.py_runtime]
+
+#   source_path = "Discord-Webhook-Dependencies.zip"
 # }
-# EOF
-
-#   event_source_mapping = {
-#     sqs = {
-#       event_source_arn = aws_sqs_queue.orders_to_notify.arn
-#     }
-#   }
-
-#   # layers = [
-#   #   module.lambda_layer_discord.lambda_layer_arn,
-#   # ]
-
-#   tags = {
-#     Name = "my-lambda-discord"
-#   }
-# }
-
-# # module "lambda_layer_discord" {
-# #   source = "terraform-aws-modules/lambda/aws"
-
-# #   create_layer = true
-
-# #   layer_name          = "lambda-layer-discord"
-# #   description         = "lambda layer that will build the dependencies upon deploy, without leaving a trace of the .zip file"
-# #   compatible_runtimes = [var.py_runtime]
-
-# #   source_path = "Discord-Webhook-Dependencies.zip"
-# # }
