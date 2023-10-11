@@ -32,3 +32,5 @@ Update: Welp, I just tested it and now I don't know if I can keep up this "tryin
 New theory: Run only off of GitHub with Actions, make a workflow file like before, but link it to OIDC for GitHub in AWS to provide a more flexible link between the two! It is worth a shot, as I have forgotten what the main issue is between GitHub and AWS or if I had one at all. 
 
 Update: For now I thin it would be best to re-attempt the API-Driven workflow. I plan on testing it first thing tomorrow morning.
+
+Update: It did not work right out of the gate, and instead, I am going to try using my old .yml files. Here is to hoping they work.
