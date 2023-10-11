@@ -6,8 +6,8 @@ on:
 env:
   TF_CLOUD_ORGANIZATION: "raven-for-aws"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "OIDC-test-configuration"
-  CONFIG_DIRECTORY: "./"
+  TF_WORKSPACE: "AWS_SAT"
+  CONFIG_DIRECTORY: "./tf"
   
 jobs:
   terraform:
