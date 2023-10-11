@@ -6,10 +6,10 @@ terraform {
     }
   }
   cloud {
-    organization = var.org
+    organization = "raven-for-aws"
 
     workspaces {
-      name = var.ws
+      name = "AWS_SAT"
     }
   }
 }
