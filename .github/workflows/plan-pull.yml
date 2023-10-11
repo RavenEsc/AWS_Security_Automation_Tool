@@ -20,6 +20,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        path: ${{ env.CONFIG_DIRECTORY }}
 #     - name: Configure AWS credentials
 #       uses: aws-actions/configure-aws-credentials@v2
 #       with:
@@ -30,9 +32,9 @@ jobs:
 #          aws sts get-caller-identity
     - name: Print Current Directory
       run: "echo ::Current Directory: $PWD::"
-      
-    - name: Print Config Directory
-      run: "echo ${{ env.CONFIG_DIRECTORY }}"
+
+    # - name: Print Config Directory
+    #   run: "echo ${{ env.CONFIG_DIRECTORY }}"
 
     - name: Upload Configuration
       uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0

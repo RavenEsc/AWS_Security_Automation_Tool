@@ -20,12 +20,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          path: ${{ env.CONFIG_DIRECTORY }}
 
       - name: Print Current Directory
         run: "echo ::Current Directory: $PWD::"
-        
-      - name: Print Config Directory
-        run: "echo ${{ env.CONFIG_DIRECTORY }}"
+
+    #   - name: Print Config Directory
+    #     run: "echo ${{ env.CONFIG_DIRECTORY }}"
 
       - name: Upload Configuration
         uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
