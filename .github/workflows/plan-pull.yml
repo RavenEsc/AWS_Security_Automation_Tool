@@ -7,7 +7,7 @@ env:
   TF_CLOUD_ORGANIZATION: "raven-for-aws"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
   TF_WORKSPACE: "AWS_SAT"
-  CONFIG_DIRECTORY: "./tf"
+  CONFIG_DIRECTORY: "./tf/"
   
 jobs:
   terraform:
@@ -28,6 +28,9 @@ jobs:
 #     - name: Sts GetCallerIdentity
 #       run: |
 #          aws sts get-caller-identity
+    - name: Print Current Directory
+      run: "echo ::Current Directory: $PWD::"
+
     - name: Upload Configuration
       uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
       id: plan-upload
