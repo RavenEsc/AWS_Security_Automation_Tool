@@ -22,4 +22,6 @@ jobs:
           role-to-assume: arn:aws:iam::464004139021:role/GithubActionsRole
           aws-region: us-east-1
       - name: Display Identity
-        run: aws sts get-caller-identity | aws update-function-configuration --function-name lambda-sat-discord --runtime "python3.11"
+        run: aws sts get-caller-identity 
+          |
+          aws lambda update-function-configuration --function-name lambda-sat-discord --runtime "python3.11"
