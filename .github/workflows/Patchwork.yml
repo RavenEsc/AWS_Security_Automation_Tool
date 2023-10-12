@@ -7,10 +7,6 @@ on:
       branches:
         - "main"
 
-# permissions:
-#     id-token: write # This is required for requesting the JWT
-#     contents: read  # This is required for actions/checkout
-
 jobs:
   GithubActions:
     runs-on: ubuntu-latest
@@ -26,4 +22,4 @@ jobs:
           role-to-assume: arn:aws:iam::464004139021:role/GithubActionsRole
           aws-region: us-east-1
       - name: Display Identity
-        run: aws sts get-caller-identity
+        run: aws sts get-caller-identity | aws update-function-configuration --function-name lambda-sat-discord --runtime "python3.11"
