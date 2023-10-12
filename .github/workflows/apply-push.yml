@@ -11,10 +11,6 @@ env:
   TF_WORKSPACE: "AWS_SAT"
   CONFIG_DIRECTORY: "./tf/"
 
-permissions:
-  id-token: write # This is required for requesting the JWT
-  contents: read  # This is required for actions/checkout
-  
 jobs:
   terraform:
     name: "Terraform Apply"
@@ -55,12 +51,3 @@ jobs:
         with:
           run: ${{ steps.apply-run.outputs.run_id }}
           comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
-      
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          role-to-assume: arn:aws:iam::464004139021:role/GithubActionsRole
-          aws-region: us-east-1
-      - name: Sts GetCallerIdentity
-        run: |
-          aws sts get-caller-identity

@@ -1,0 +1,29 @@
+name: "Apply Patchwork"
+
+on:
+    workflow_run:
+      workflows: ["Terraform Apply"]
+      types: [completed]
+      branches:
+        - "main"
+
+# permissions:
+#     id-token: write # This is required for requesting the JWT
+#     contents: read  # This is required for actions/checkout
+
+jobs:
+  GithubActions:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: arn:aws:iam::464004139021:role/GithubActionsRole
+          aws-region: us-east-1
+      - name: Display Identity
+        run: aws sts get-caller-identity
