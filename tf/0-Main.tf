@@ -2,14 +2,14 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.18.1"
+      version = "~> 5.18.0"
     }
   }
   cloud {
-    organization = var.org
+    organization = "raven-for-aws"
 
     workspaces {
-      name = var.ws
+      name = "AWS_SAT"
     }
   }
 }
