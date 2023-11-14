@@ -10,22 +10,22 @@ module "lambda_Discord" {
 
   attach_policy_json = true
   policy_json = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Sid": "AllowLambdaDisSQSAccess",
-        "Effect": "Allow",
-        "Action": [
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage",
-          "sqs:GetQueueAttributes"
-        ],
-        "Resource": "${aws_sqs_queue.orders_to_notify.arn}"
-      }
-    ]
-  }
-  EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowLambdaDisSQSAccess",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes"
+      ],
+      "Resource": "${aws_sqs_queue.orders_to_notify.arn}"
+    }
+  ]
+}
+EOF
 
   event_source_mapping = {
     sqs = {
