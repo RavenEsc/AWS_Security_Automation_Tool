@@ -45,7 +45,7 @@ jobs:
           IMAGE: oooooooo
           TAG: latest
         run: |
-          docker buildx build -t $ECR_REGISTRY/$IMAGE:$TAG ../code/discordlambda/ -f Dockerfile
+          docker buildx build -t $ECR_REGISTRY/$IMAGE:$TAG code\discordlambda
           docker push $ECR_REGISTRY/$IMAGE:$TAG
     #   -
     #     name: Login to Docker Hub
