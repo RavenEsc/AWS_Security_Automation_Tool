@@ -1,35 +1,31 @@
 module "lambda_Discord" {
   source = "terraform-aws-modules/lambda/aws"
-  version       = "6.0.1"
-  function_name = "lambda-sat-discord"
-  description   = "Sends messages as notifications from the SQS Queue to Discord Webhook Bot"
-  handler       = "discordnote.lambda_handler"
-  runtime       = "python3.8"
-  source_path = [
-        {
-            path = "../code/discordlambda"
-            pip_requirements = true
-        }
-  ]
+  function_name   = "lambda-sat-discord"
+  description     = "Sends messages as notifications from the SQS Queue to Discord Webhook Bot"
 
-attach_policy_json = true
-policy_json = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowLambdaDisSQSAccess",
-      "Effect": "Allow",
-      "Action": [
-        "sqs:ReceiveMessage",
-        "sqs:DeleteMessage",
-        "sqs:GetQueueAttributes"
-      ],
-      "Resource": "${aws_sqs_queue.orders_to_notify.arn}"
-    }
-  ]
-}
-EOF
+  create_package  = false
+
+  image_uri    = module.docker_image_webhook.image_uri
+  package_type = "Image"
+
+  attach_policy_json = true
+  policy_json = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowLambdaDisSQSAccess",
+        "Effect": "Allow",
+        "Action": [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes"
+        ],
+        "Resource": "${aws_sqs_queue.orders_to_notify.arn}"
+      }
+    ]
+  }
+  EOF
 
   event_source_mapping = {
     sqs = {
@@ -37,23 +33,19 @@ EOF
     }
   }
 
-  # layers = [
-  #   module.lambda_layer_discord.lambda_layer_arn,
-  # ]
-
   tags = {
     Name = "my-lambda-discord"
   }
 }
 
-# module "lambda_layer_discord" {
-#   source = "terraform-aws-modules/lambda/aws"
+module "docker_image_webhook" {
+  source = "terraform-aws-modules/lambda/aws//modules/docker-build"
 
-#   create_layer = true
+  create_ecr_repo = true
+  ecr_repo        = "testDiscord-ecr-repo"
 
-#   layer_name          = "lambda-layer-discord"
-#   description         = "lambda layer that will build the dependencies upon deploy, without leaving a trace of the .zip file"
-#   compatible_runtimes = [var.py_runtime]
+  use_image_tag = true
+  image_tag     = "1.0"
 
-#   source_path = "Discord-Webhook-Dependencies.zip"
-# }
+  source_path     = "../code/discordlambda"
+}
