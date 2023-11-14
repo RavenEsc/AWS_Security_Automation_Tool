@@ -4,6 +4,8 @@ on:
     workflow_run:
         workflows: ["lambdadockerimage-ecr"]
         types: [completed]
+        branches:
+        - "main"
   
 env:
   TF_CLOUD_ORGANIZATION: "raven-for-aws"
