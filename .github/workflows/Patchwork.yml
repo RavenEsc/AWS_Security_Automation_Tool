@@ -1,27 +1,27 @@
-name: "Apply Patchwork"
+# name: "Apply Patchwork"
 
-on:
-    workflow_run:
-      workflows: ["Terraform Apply"]
-      types: [completed]
-      branches:
-        - "main"
+# on:
+#     workflow_run:
+#       workflows: ["Terraform Apply"]
+#       types: [completed]
+#       branches:
+#         - "main"
 
-jobs:
-  GithubActions:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Configure AWS credentials from Test account
-        uses: aws-actions/configure-aws-credentials@master
-        with:
-          role-to-assume: arn:aws:iam::464004139021:role/GithubActionsRole
-          aws-region: us-east-1
-      - name: Display Identity
-        run: aws sts get-caller-identity 
-          |
-          aws lambda update-function-configuration --function-name lambda-sat-discord --runtime "python3.11"
+# jobs:
+#   GithubActions:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       id-token: write
+#       contents: read
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+#       - name: Configure AWS credentials from Test account
+#         uses: aws-actions/configure-aws-credentials@master
+#         with:
+#           role-to-assume: arn:aws:iam::464004139021:role/GithubActionsRole
+#           aws-region: us-east-1
+#       - name: Display Identity
+#         run: aws sts get-caller-identity 
+#           |
+#           aws lambda update-function-configuration --function-name lambda-sat-discord --runtime "python3.11"
