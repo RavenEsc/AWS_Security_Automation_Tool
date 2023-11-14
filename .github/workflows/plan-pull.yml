@@ -2,10 +2,11 @@ name: "Terraform Plan"
 
 on:
     workflow_run:
-        workflows: ["lambdadockerimage-ecr"]
-        types: [completed]
-        branches:
-        - "main"
+        workflows: ["Lambda Docker Image Build and Push"]
+        types: 
+            - completed
+        
+
   
 env:
   TF_CLOUD_ORGANIZATION: "raven-for-aws"

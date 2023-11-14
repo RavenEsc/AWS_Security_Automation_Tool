@@ -1,4 +1,4 @@
-name: "lambdadockerimage-ecr"
+name: "Lambda Docker Image Build and Push"
 
 on:
   pull_request:
