@@ -5,7 +5,7 @@ module "lambda_Discord" {
 
   create_package  = false
 
-  image_uri    = module.docker_image_webhook.image_uri
+  image_uri    = "464004139021.dkr.ecr.us-east-1.amazonaws.com/xxxxxxxxx:latest"
   package_type = "Image"
 
   attach_policy_json = true
@@ -36,30 +36,4 @@ module "lambda_Discord" {
   tags = {
     Name = "my-lambda-discord"
   }
-
-  depends_on = [ 
-    module.docker_image_webhook
-    ]
-}
-
-data "aws_ecr_authorization_token" "token" {}
-
-provider "docker" {
-  registry_auth {
-    address  = "464004139021.dkr.ecr.us-east-1.amazonaws.com"
-    username = data.aws_ecr_authorization_token.token.user_name
-    password = data.aws_ecr_authorization_token.token.password
-  }
-}
-
-module "docker_image_webhook" {
-  source = "terraform-aws-modules/lambda/aws//modules/docker-build"
-
-  create_ecr_repo = true
-  ecr_repo        = "testDiscord-ecr-repo"
-
-  use_image_tag = true
-  image_tag     = "1.0"
-
-  source_path     = "../code/discordlambda"
 }
