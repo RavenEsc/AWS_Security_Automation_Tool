@@ -6,7 +6,7 @@ on:
       - 'main'
 
 jobs:
-  GithubActions:
+  Docker:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -22,17 +22,17 @@ jobs:
           role-to-assume: arn:aws:iam::464004139021:role/GithubActionsRole
           aws-region: us-east-1
           
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      - 
-        name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
       # - 
       #   name: Create and Display ECR Repo
       #   run: aws ecr create-repository --repoistory-name ???
+
+      - 
+        name: Login to Amazon ECR
+        id: login-ecr
+        
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: true
 
       -
         name: Set up Docker Buildx
