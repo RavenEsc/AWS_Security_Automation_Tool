@@ -1,9 +1,7 @@
-name: ci
+name: "Lambda Docker Image Build and Push"
 
 on:
-  push:
-    branches:
-      - 'main'
+  pull_request:
 
 jobs:
   Docker:
@@ -22,10 +20,10 @@ jobs:
           role-to-assume: arn:aws:iam::464004139021:role/GithubActionsRole
           aws-region: us-east-1
 
-      # - 
-      #   name: Create and Display ECR Repo
-      #   run: aws ecr create-repository --repoistory-name xxxxxxxxx
-
+      - 
+        name: Create and Display ECR Repo
+        run: aws ecr create-repository --repository-name xxxxxxxxx || echo "ECR Repo already exists, skipping command."
+        
       - 
         name: Login to Amazon ECR
         id: login-ecr
