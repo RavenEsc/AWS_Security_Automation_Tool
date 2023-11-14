@@ -3,8 +3,8 @@ name: "Terraform Plan"
 on:
     workflow_run:
         workflows: ["Lambda Docker Image Build and Push"]
-        types: 
-            - completed
+        # types: 
+        #     - completed
         
 
   
