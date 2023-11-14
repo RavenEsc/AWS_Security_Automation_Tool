@@ -44,8 +44,6 @@ module "lambda_Discord" {
 data "aws_ecr_authorization_token" "token" {}
 
 provider "docker" {
-  alias = "kreuzwerker"
-  source = "kreuzwerker/docker"
   registry_auth {
     address  = "835367859852.dkr.ecr.eu-west-1.amazonaws.com"
     username = data.aws_ecr_authorization_token.token.user_name
