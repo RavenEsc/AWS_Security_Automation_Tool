@@ -36,6 +36,19 @@ module "lambda_Discord" {
   tags = {
     Name = "my-lambda-discord"
   }
+  depends_on = [ 
+    module.module.docker_image_webhook
+    ]
+}
+
+data "aws_ecr_authorization_token" "token" {}
+
+provider "docker" {
+  registry_auth {
+    address  = "835367859852.dkr.ecr.eu-west-1.amazonaws.com"
+    username = data.aws_ecr_authorization_token.token.user_name
+    password = data.aws_ecr_authorization_token.token.password
+  }
 }
 
 module "docker_image_webhook" {
