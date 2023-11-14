@@ -21,7 +21,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::464004139021:role/GithubActionsRole
           aws-region: us-east-1
-          
+
       # - 
       #   name: Create and Display ECR Repo
       #   run: aws ecr create-repository --repoistory-name ???
@@ -45,7 +45,7 @@ jobs:
           IMAGE: oooooooo
           TAG: latest
         run: |
-          docker buildx build -t $ECR_REGISTRY/$IMAGE:$TAG ../../code/discordlambda/ -f ./Dockerfile
+          docker buildx build -t $ECR_REGISTRY/$IMAGE:$TAG ../code/discordlambda/ -f Dockerfile
           docker push $ECR_REGISTRY/$IMAGE:$TAG
     #   -
     #     name: Login to Docker Hub
