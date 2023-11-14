@@ -37,7 +37,7 @@ module "lambda_Discord" {
     Name = "my-lambda-discord"
   }
   depends_on = [ 
-    module.module.docker_image_webhook
+    module.docker_image_webhook
     ]
 }
 
