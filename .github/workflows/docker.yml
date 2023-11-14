@@ -1,4 +1,4 @@
-name: lambdadockerimage-ecr
+name: "lambdadockerimage-ecr"
 
 on:
   pull_request:
