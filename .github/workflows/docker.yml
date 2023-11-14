@@ -63,4 +63,4 @@ jobs:
           TAG: latest
         with:
           push: true
-          tags: $ECR_REGISTRY/$IMAGE:$TAG
+          tags: ${{ env.ECR_REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
