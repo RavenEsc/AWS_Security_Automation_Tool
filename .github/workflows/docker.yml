@@ -63,4 +63,5 @@ jobs:
           TAG: latest
         with:
           push: true
+          context: code\discordlambda
           tags: ${{ env.ECR_REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
