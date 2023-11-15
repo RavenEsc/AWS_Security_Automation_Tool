@@ -5,6 +5,7 @@ from diagrams.aws.integration import SimpleNotificationServiceSnsTopic
 from diagrams.aws.integration import SimpleQueueServiceSqsQueue
 from diagrams.aws.integration import Eventbridge
 from diagrams.onprem.compute import Server
+from diagrams.aws.compute import ElasticContainerService
 
 with Diagram("Security Automation Tool", show=False):
 
@@ -27,5 +28,7 @@ with Diagram("Security Automation Tool", show=False):
             functionD = Lambda("DcordLambFunction")
             functionS3 = Lambda("S3LambFunction")
             Discord = Server("DcordNotifiBot")
+            ECR = ElasticContainerService('LambdaContainerImage')
             SQSa >> functionS3 >> s3_bucket
             SQSb >> functionD >> Discord
+            ECR >> Discord
