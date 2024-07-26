@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
+
+### [1.1.1] - 2024-7-26
  
+Fixed Issue - Updated AWS Provider from 5.18.0 > 5.60.0
+ 
+
 ## [1.1.0] - 2023-11-14
  
 Utilization of ECR to containerize a controlled environment
