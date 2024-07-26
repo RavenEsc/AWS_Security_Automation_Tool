@@ -4,9 +4,9 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.18.0"
     }
-    docker = {
-      source = "kreuzwerker/docker"
-    }
+    # docker = {
+    #   source = "kreuzwerker/docker"
+    # }
   }
   cloud {
     organization = "raven-for-aws"
