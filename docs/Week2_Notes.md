@@ -2,7 +2,7 @@
 
 Update:
 
-- Developed and designed the terraform and python codes, undeployed
+- Developed and designed the terraform and python codes, un-deployed
 
 - Created a main file for terraform, then split it up into several segments of code with relative organization (Main rough draft code is in RoughDraft-Designs.txt)
 
