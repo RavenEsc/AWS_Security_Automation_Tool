@@ -5,3 +5,5 @@ config/
 #tf
 .terraform
 .terraform.lock.hcl
+#pip
+pip*
