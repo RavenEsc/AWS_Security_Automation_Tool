@@ -2,9 +2,12 @@ import logging
 import json
 from discord_webhook import DiscordWebhook, DiscordEmbed
 import traceback
+import boto3
+
 # Initialize logger
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
 def lambda_handler(event, context):
     try:
         # Pulls from SQS event trigger, checks each result in the list, sets each necessary value within the elements read
@@ -12,8 +15,25 @@ def lambda_handler(event, context):
         for record in records:
             message = json.loads(record['body'])
             for item in message:
-                # Alert Value so far between 'EC2_Public_Instance', 
+                # Alert Value so far between 'EC2_Public_Instance', 'IAM Group Admin', 'IAM Admin User', & 'IAM Admin Role'
                 alert = item['Alert']
+            try:
+                # Grabs Secret from AWS Secrets Manager and sets it as a variable
+                secret_name = "tfc/sat/discordwebhook"
+                region_name = "us-east-1"
+
+                # Create a Secrets Manager client
+                session = boto3.session.Session()
+                client = session.client(
+                    service_name='secretsmanager',
+                    region_name=region_name
+                )
+                get_secret_value_response = client.get_secret_value(
+                    SecretId=secret_name
+                )
+
+                secret = get_secret_value_response['SecretString']
+                webhook = DiscordWebhook(url=secret)
             # EC2 Public Instance
                 if alert == 'EC2_Public_Instance':
                     # EC2 values set as variables
@@ -26,7 +46,6 @@ def lambda_handler(event, context):
 
                     try:
                         # Sends the PublicEC2 Alert message formatted to be easily readable to Discord channel webhook integration, pings all users who can see the channel
-                        webhook = DiscordWebhook(url="https://discordapp.com/api/webhooks/1147701063630196786/PVU9g477tn2u9ko0LZ5uTg4SUoQGqe_iSftGdhjZi1Szz5aIDDEew4soEPL80S3EYizy")
                         embed = DiscordEmbed(
                             title="Public EC2 Instance!",
                             description=f"Instance ID: {id}\nPublic IP: {public_ip}\nAttachment Time: {time_created}\nOpen Ports: {open_ports}\n\n@ravnsymphony",
@@ -44,8 +63,7 @@ def lambda_handler(event, context):
                         return {
                             "statusCode": 500,
                             "body": {"message": f"Error sending Discord message: {e}"}
-                        }
-                    
+                        }                    
             # IAM Group Admin
                 elif alert == 'Unauthorized_Admin_Group':
                     # IAM values set as variables
@@ -54,7 +72,6 @@ def lambda_handler(event, context):
 
                     try:
                         # Sends the PublicEC2 Alert message formatted to be easily readable to Discord channel webhook integration, pings all users who can see the channel
-                        webhook = DiscordWebhook(url="https://discordapp.com/api/webhooks/1147701063630196786/PVU9g477tn2u9ko0LZ5uTg4SUoQGqe_iSftGdhjZi1Szz5aIDDEew4soEPL80S3EYizy")
                         embed = DiscordEmbed(
                             title="Unauthorized Admin!",
                             description=f"Group Name: {group}\nID: {group_id}\n\n@ravnsymphony",
@@ -81,7 +98,6 @@ def lambda_handler(event, context):
 
                     try:
                         # Sends the PublicEC2 Alert message formatted to be easily readable to Discord channel webhook integration, pings all users who can see the channel
-                        webhook = DiscordWebhook(url="https://discordapp.com/api/webhooks/1147701063630196786/PVU9g477tn2u9ko0LZ5uTg4SUoQGqe_iSftGdhjZi1Szz5aIDDEew4soEPL80S3EYizy")
                         embed = DiscordEmbed(
                             title="Unauthorized Admin!",
                             description=f"User Name: {user}\nID: {user_id}\n\n@ravnsymphony",
@@ -108,7 +124,6 @@ def lambda_handler(event, context):
 
                     try:
                         # Sends the PublicEC2 Alert message formatted to be easily readable to Discord channel webhook integration, pings all users who can see the channel
-                        webhook = DiscordWebhook(url="https://discordapp.com/api/webhooks/1147701063630196786/PVU9g477tn2u9ko0LZ5uTg4SUoQGqe_iSftGdhjZi1Szz5aIDDEew4soEPL80S3EYizy")
                         embed = DiscordEmbed(
                             title="Unauthorized Admin!",
                             description=f"Role Name: {role}\nID: {role_id}\n\n@ravnsymphony",
@@ -127,6 +142,15 @@ def lambda_handler(event, context):
                             "statusCode": 500,
                             "body": {"message": f"Error sending Discord message: {e}"}
                     }
+            except Exception as e:
+                traceback_message = traceback.format_exc()
+                logger.error(f"Error grabbing from Secret Manager: {e}")
+                logger.error(traceback_message)
+                logger.error(message)
+                return {
+                    "statusCode": 500,
+                    "body": {"message": f"Error grabbing from Secret Manager: {e}"}
+                }
     # Handles the errors for recieving the messages to Discord
     except Exception as e:
         traceback_message = traceback.format_exc()
