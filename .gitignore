@@ -1,3 +1,7 @@
+#.vscode
 config/
 .devcontainer
 .vscode
+#tf
+.terraform
+.terraform.lock.hcl
