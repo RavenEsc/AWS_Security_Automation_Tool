@@ -11,7 +11,7 @@ Update: Began working on IAM admin policy checker and more potential CSPM (Cloud
 
 &rarr; Finish IAM Admin Check
 
-&rarr; Minimize false positives by portscanning the public ec2 instance if it is actually publicly accessible
+&rarr; Minimize false positives by port scanning the public ec2 instance if it is actually publicly accessible
 
 &rarr; Utilize the automatic requirements.txt installation of dependencies instead of lambda layers of the discord lambda module (check docs)
 
@@ -28,6 +28,6 @@ Update: Began working on IAM admin policy checker and more potential CSPM (Cloud
 
     - Placed potential ways to prevent false positives in the ec2 python code
     
-    - Made the requirements.txt, still needs the pip install stuff (DOWN WITH THE LOCAL INSTALLATIUONS)
+    - Made the requirements.txt, still needs the pip install stuff (DOWN WITH THE LOCAL INSTALLATIONS)
 
     - Posted about the DaC

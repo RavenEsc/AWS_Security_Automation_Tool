@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.60.0"
+      version = "~> 5.79.0"
     }
     docker = {
       source = "kreuzwerker/docker"
@@ -20,4 +20,12 @@ terraform {
 
 provider "aws" {
   region  = var.reg
+
+  default_tags {
+    tags = {
+      App = "Sec-SAT"
+      Env = "Dev"
+      IaC = "Terraform"
+    }
+  }
 }

@@ -9,9 +9,9 @@ Goal setting!
 **Build A Security Service that Checks for compliance or vulnerability issues!**
 
 **Discussed Rules:**
- 1. Checks for publically accessible EC2 instances (Route table configs)
+ 1. Checks for publicly accessible EC2 instances (Route table configs)
 
- 2. Checks for publically shared IAM resource policies
+ 2. Checks for publicly shared IAM resource policies
  3. Checks for overly permissive User/Role IAM policies
  4. All checks should be automated
  5. All checks should run at a set interval (like 3 am every night)
