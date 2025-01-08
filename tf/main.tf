@@ -20,4 +20,12 @@ terraform {
 
 provider "aws" {
   region  = var.reg
+
+  default_tags {
+    tags = {
+      App = "Sec-SAT"
+      Env = "Dev"
+      IaC = "Terraform"
+    }
+  }
 }
