@@ -31,6 +31,7 @@ module "lambda_Discord" {
       ],
       "Resource": "arn:aws:secretsmanager:us-east-1:464004139021:secret:tfc/sat/discordwebhook-xD2JBX"
     }
+  ]
 }
 EOF
 
