@@ -29,8 +29,8 @@ def lambda_handler(event, context):
                         webhook = DiscordWebhook(url="https://discordapp.com/api/webhooks/1147701063630196786/PVU9g477tn2u9ko0LZ5uTg4SUoQGqe_iSftGdhjZi1Szz5aIDDEew4soEPL80S3EYizy")
                         embed = DiscordEmbed(
                             title="Public EC2 Instance!",
-                            description=f"Instance ID: {id}\nPublic IP: {public_ip}\nAttachment Time: {time_created}\nOpen Ports: {open_ports}\n\n@everyone",
-                            allowed_mentions={"everyone"},
+                            description=f"Instance ID: {id}\nPublic IP: {public_ip}\nAttachment Time: {time_created}\nOpen Ports: {open_ports}\n\n@ravnsymphony",
+                            allowed_mentions={"ravnsymphony"},
                             color=0x03b2f8
                         )
                         webhook.add_embed(embed)
@@ -57,8 +57,8 @@ def lambda_handler(event, context):
                         webhook = DiscordWebhook(url="https://discordapp.com/api/webhooks/1147701063630196786/PVU9g477tn2u9ko0LZ5uTg4SUoQGqe_iSftGdhjZi1Szz5aIDDEew4soEPL80S3EYizy")
                         embed = DiscordEmbed(
                             title="Unauthorized Admin!",
-                            description=f"Group Name: {group}\nID: {group_id}\n\n@everyone",
-                            allowed_mentions={"everyone"},
+                            description=f"Group Name: {group}\nID: {group_id}\n\n@ravnsymphony",
+                            allowed_mentions={"ravnsymphony"},
                             color=0x03b2f8
                         )
                         webhook.add_embed(embed)
@@ -84,8 +84,8 @@ def lambda_handler(event, context):
                         webhook = DiscordWebhook(url="https://discordapp.com/api/webhooks/1147701063630196786/PVU9g477tn2u9ko0LZ5uTg4SUoQGqe_iSftGdhjZi1Szz5aIDDEew4soEPL80S3EYizy")
                         embed = DiscordEmbed(
                             title="Unauthorized Admin!",
-                            description=f"User Name: {user}\nID: {user_id}\n\n@everyone",
-                            allowed_mentions={"everyone"},
+                            description=f"User Name: {user}\nID: {user_id}\n\n@ravnsymphony",
+                            allowed_mentions={"ravnsymphony"},
                             color=0x03b2f8
                         )
                         webhook.add_embed(embed)
@@ -111,8 +111,8 @@ def lambda_handler(event, context):
                         webhook = DiscordWebhook(url="https://discordapp.com/api/webhooks/1147701063630196786/PVU9g477tn2u9ko0LZ5uTg4SUoQGqe_iSftGdhjZi1Szz5aIDDEew4soEPL80S3EYizy")
                         embed = DiscordEmbed(
                             title="Unauthorized Admin!",
-                            description=f"Role Name: {role}\nID: {role_id}\n\n@everyone",
-                            allowed_mentions={"everyone"},
+                            description=f"Role Name: {role}\nID: {role_id}\n\n@ravnsymphony",
+                            allowed_mentions={"ravnsymphony"},
                             color=0x03b2f8
                         )
                         webhook.add_embed(embed)

@@ -22,8 +22,15 @@ module "lambda_Discord" {
         "sqs:GetQueueAttributes"
       ],
       "Resource": "${aws_sqs_queue.orders_to_notify.arn}"
+    },
+    {
+      "Sid": "AllowLambdaDisSecretAccess",
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": "arn:aws:secretsmanager:us-east-1:464004139021:secret:tfc/sat/discordwebhook-xD2JBX"
     }
-  ]
 }
 EOF
 
