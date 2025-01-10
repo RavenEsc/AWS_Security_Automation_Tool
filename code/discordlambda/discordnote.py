@@ -32,8 +32,8 @@ def lambda_handler(event, context):
                     SecretId=secret_name
                 )
 
-                secret = get_secret_value_response['SecretString']
-                webhook = DiscordWebhook(url=secret)
+                secret = json.loads(get_secret_value_response['SecretString'])
+                webhook = DiscordWebhook(url=secret["DiscordWebhook"])
             # EC2 Public Instance
                 if alert == 'EC2_Public_Instance':
                     # EC2 values set as variables
