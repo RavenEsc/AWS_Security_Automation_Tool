@@ -49,8 +49,8 @@ def lambda_handler(event, context):
                         # Sends the PublicEC2 Alert message formatted to be easily readable to Discord channel webhook integration, pings all users who can see the channel
                         embed = DiscordEmbed(
                             title="Public EC2 Instance!",
-                            description=f"Instance ID: {id}\nPublic IP: {public_ip}\nAttachment Time: {time_created}\nOpen Ports: {open_ports}\n\n@ravnsymphony",
-                            allowed_mentions={"ravnsymphony"},
+                            description=f"Instance ID: {id}\nPublic IP: {public_ip}\nAttachment Time: {time_created}\nOpen Ports: {open_ports}\n\n@everyone",
+                            allowed_mentions={"everyone"},
                             color=0x03b2f8
                         )
                         webhook.add_embed(embed)
@@ -75,8 +75,8 @@ def lambda_handler(event, context):
                         # Sends the PublicEC2 Alert message formatted to be easily readable to Discord channel webhook integration, pings all users who can see the channel
                         embed = DiscordEmbed(
                             title="Unauthorized Admin!",
-                            description=f"Group Name: {group}\nID: {group_id}\n\n@ravnsymphony",
-                            allowed_mentions={"ravnsymphony"},
+                            description=f"Group Name: {group}\nID: {group_id}\n\n@everyone",
+                            allowed_mentions={"everyone"},
                             color=0x03b2f8
                         )
                         webhook.add_embed(embed)
@@ -101,8 +101,8 @@ def lambda_handler(event, context):
                         # Sends the PublicEC2 Alert message formatted to be easily readable to Discord channel webhook integration, pings all users who can see the channel
                         embed = DiscordEmbed(
                             title="Unauthorized Admin!",
-                            description=f"User Name: {user}\nID: {user_id}\n\n@ravnsymphony",
-                            allowed_mentions={"ravnsymphony"},
+                            description=f"User Name: {user}\nID: {user_id}\n\n@everyone",
+                            allowed_mentions={"everyone"},
                             color=0x03b2f8
                         )
                         webhook.add_embed(embed)
@@ -127,8 +127,8 @@ def lambda_handler(event, context):
                         # Sends the PublicEC2 Alert message formatted to be easily readable to Discord channel webhook integration, pings all users who can see the channel
                         embed = DiscordEmbed(
                             title="Unauthorized Admin!",
-                            description=f"Role Name: {role}\nID: {role_id}\n\n@ravnsymphony",
-                            allowed_mentions={"ravnsymphony"},
+                            description=f"Role Name: {role}\nID: {role_id}\n\n@everyone",
+                            allowed_mentions={"everyone"},
                             color=0x03b2f8
                         )
                         webhook.add_embed(embed)
