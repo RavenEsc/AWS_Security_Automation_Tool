@@ -1,6 +1,20 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+### [1.1.5]
+
+Fixed vulnerability - exposed value in Python script. Added default tagging to all resources. Updated Provider.
+
+### Added
+
+- [AWS-Secrets-Manager-Functionality](https://github.com/RavenEsc/AWS_Security_Automation_Tool/blob/main/code/discordlambda/discordnote.py)
+  Takes advantage of the boto3 library to access the secret value held in AWS Secrets Manager
+
+- [AWS-Secrets-Manager-Access](https://github.com/RavenEsc/AWS_Security_Automation_Tool/blob/main/tf/DiscordLambdaFunction.tf)
+  Gives the Discord Notification Lambda script permission to access the specific secret needed via policy.
+
+<center><img src="docs/v1.1.5.png" alt="v1.1.5" width="70%"/></center>
+
 ### [1.1.1] - 2024-7-26
  
 Fixed Issue - Updated AWS Provider from 5.18.0 > 5.60.0
@@ -10,7 +24,7 @@ Fixed Issue - Updated AWS Provider from 5.18.0 > 5.60.0
  
 Utilization of ECR to containerize a controlled environment
  
-<center><img src="docs/v1.1.0.png" alt="v1.0.0" width="70%"/></center>
+<center><img src="docs/v1.1.0.png" alt="v1.1.0" width="70%"/></center>
 
 ### Added
 - [Docker-YAML-GitActions](https://github.com/RavenEsc/AWS_Security_Automation_Tool/blob/e204e13e41e8c6f4a474d13a1fbfee50a7f0849c/.github/workflows/docker.yml)

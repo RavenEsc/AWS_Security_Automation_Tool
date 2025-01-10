@@ -6,6 +6,7 @@ from diagrams.aws.integration import SimpleQueueServiceSqsQueue
 from diagrams.aws.integration import Eventbridge
 from diagrams.onprem.compute import Server
 from diagrams.aws.compute import ElasticContainerService
+from diagrams.aws.security import SecretsManager
 
 with Diagram("Security Automation Tool", show=False):
 
@@ -14,7 +15,9 @@ with Diagram("Security Automation Tool", show=False):
         SNS = SimpleNotificationServiceSnsTopic("SNS")
         SQSa = SimpleQueueServiceSqsQueue("SQS Queue: S3")
         SQSb = SimpleQueueServiceSqsQueue("SQS Queue: Dcord")
+        Secrets = SecretsManager('SecretsManager')
         SNS >> [SQSa, SQSb]
+        
 
         with Cluster("Trigger-Lambda"):
             eveb = Eventbridge("EventBLambTrigger")
@@ -32,3 +35,5 @@ with Diagram("Security Automation Tool", show=False):
             SQSa >> functionS3 >> s3_bucket
             SQSb >> functionD >> Discord
             ECR >> Discord
+        
+        Secrets >> functionD
